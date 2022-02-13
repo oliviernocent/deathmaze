@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Death Maze</title>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- A-Frame Physics System-->
+  <script
+    src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+  <!-- A-Frame extras including movement-contols and kinematic-body -->
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <style>
+    .splashscreen {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      background-color: rgb(30, 30, 30);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      font-family: monospace;
+      font-size: 24px;
+      color: rgb(204, 204, 204);
+    }
+
+    h1 {
+      font-family: 'Creepster', cursive;
+      font-size: 6rem;
+      color: rgb(174, 8, 21);
+      text-align: center;
+      margin-top: 1rem;
+
+    }
+    
+    h2 {
+      margin-bottom: 0.2rem;
+    }
+
+    ul {
+      list-style-type: square;
+    }
+
+    #start {
+      font-family: 'Creepster', cursive;
+      font-size: 4rem;
+      color: rgb(203, 203, 65);
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="splashscreen">
+    <div class="container">
+      <h1>DEATH MAZE</h1>
+
+      <p>
+        Find and click the portal to leave this nightmare...
+      </p>
+
+      <h2>controls:</h2>
+      <ul>
+        <li>[&larr;] [&uarr;] [&darr;] [&rarr;] : move your character
+        <li>click : lock your cursor to the camera
+        <li>[esc] : unlock your cursor
+        <li>mouse : rotate your camera</li>
+        <li>[h] : yell for help
+      </ul>
+
+      <p>
+        for a scarier experience, click the VR button!
+      </p>
+
+      <p id="start">
+        <span>START</span>
+      </p>
+    </div>
+  </div>
+
+  <a-scene physics>
+    <a-assets>
+      <img id="ground-texture" src="assets/img/ground.png">
+      <img id="ceil-texture" src="assets/img/ceil.png">
+      <img id="wall-texture" src="assets/img/wall.png">
+      <img id="portal-texture" src="assets/img/portal.png">
+      <audio id="theme" loop src="assets/sound/theme.mp3"></audio>
+      <audio id="sound1" src="assets/sound/sound1.mp3"></audio>
+      <audio id="sound2" src="assets/sound/sound2.mp3"></audio>
+      <audio id="sound3" src="assets/sound/sound3.mp3"></audio>
+      <audio id="sound4" src="assets/sound/sound4.mp3"></audio>
+      <audio id="sound5" src="assets/sound/sound5.mp3"></audio>
+      <audio id="sound6" src="assets/sound/sound6.mp3"></audio>
+      <audio id="sound7" src="assets/sound/sound7.mp3"></audio>
+    </a-assets>
+
+    <a-entity light="type: ambient; color: white; intensity: 0.11"></a-entity>
+
+    <!-- kinematic body used for collisions with static and dynamic bodies -->
+    <a-entity id="player" kinematic-body="radius: 0.48" position="1 0 1" movement-controls>
+      <!-- camera -->
+      <a-entity
+        light="type: spot; color: white; intensity: 0.9; distance: 5; angle: 20; penumbra: 0.25; target: #cursor"
+        position="0.2 1.6 0">
+      </a-entity>
+      <a-entity camera position="0 1.6 0" look-controls="pointerLockEnabled: true">
+        <a-cursor id="cursor"></a-cursor>
+      </a-entity>
+    </a-entity>
+
+    <a-plane id="portal" static-body rotation="-90 0 0" width="1" height="1" src="#portal-texture" roughness="1"
+      metalness="0">
+      <a-entity light="type: point; color: white; intensity: 0.9; distance: 1.5" position="0 0 0.5">
+      </a-entity>
+    </a-plane>
+
+  </a-scene>
+
+  <script src="js/maze.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
